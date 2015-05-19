@@ -88,6 +88,13 @@ def delay(seconds):
     time.sleep(delay)
     return jsonify(get_dict('origin', delay=seconds))
 
+@debug_routes.route('/customDelay/<int:seconds>')
+def delay(seconds):
+    """ show json response after a delay of n seconds """
+    delay = seconds
+    time.sleep(delay)
+    return jsonify(get_dict('origin', delay=seconds))
+
 @debug_routes.route('/headers')
 def headers():
     """ return json showing headers """
@@ -109,6 +116,14 @@ def get_code(code):
     """ return the HTTP status code """
     response = make_response('')
     response.status_code = code
+    return response
+
+@debug_routes.route('/custom-content-type-header', methods=["POST"])
+def get_custom_header():
+    """ return the HTTP status code """
+    response = make_response('')
+    response.status_code = 200
+    response.headers['Content-Type'] = get_dict('form')["form"]["header"]
     return response
 
 @debug_routes.route('/redirect-to')
