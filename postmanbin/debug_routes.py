@@ -88,8 +88,8 @@ def delay(seconds):
     time.sleep(delay)
     return jsonify(get_dict('origin', delay=seconds))
 
-@debug_routes.route('/customDelay/<int:seconds>')
-def delay(seconds):
+@debug_routes.route('/customdelay/<int:seconds>')
+def customdelay(seconds):
     """ show json response after a delay of n seconds """
     delay = seconds
     time.sleep(delay)
@@ -110,6 +110,27 @@ def post_request():
     """ same as httpbin """
     return jsonify(get_dict('form', 'data', 'json', 'files', 'args',
                             'url', 'headers', 'origin'))
+
+@debug_routes.route('/put', methods=["PUT"])
+def put_request():
+    """ same as httpbin """
+    return jsonify(get_dict('form', 'data', 'json', 'files', 'args',
+                            'url', 'headers', 'origin'))
+
+@debug_routes.route('/head', methods=["HEAD"])
+def head_request():
+    """ same as httpbin """
+    return jsonify(get_dict('headers'))
+
+@debug_routes.route('/html', methods=["OPTIONS"])
+def html_request():
+    """ same as httpbin """
+    return jsonify(get_dict('headers'))
+
+@debug_routes.route('/delete', methods=["DELETE"])
+def delete_request():
+    """ same as httpbin """
+    return jsonify(get_dict('origin', 'headers', 'url', 'args'))
 
 @debug_routes.route('/code/<int:code>')
 def get_code(code):
