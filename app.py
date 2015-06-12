@@ -86,7 +86,7 @@ class Blog(restful.Resource):
                 post_id = cur.lastrowid
                 db.commit()
                 return {'message': "Post added successfully", "post_id": post_id}
-        return {"message": "Invalid credentials"}
+        restful.abort(401, message="Invalid credentials")
 
 class BlogPost(restful.Resource):
     # get /blog/posts/:id - return the blog post
